@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:examen_departamental_tania/icono_util.dart';
 import 'package:examen_departamental_tania/provider_menu.dart';
-import 'package:flutter/services.dart';
+import 'package:examen_departamental_tania/alert_page.dart';
+import 'package:examen_departamental_tania/avatar_page.dart';
+import 'package:examen_departamental_tania/cards_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -52,38 +54,29 @@ class MyHomePage extends StatelessWidget {
         leading: getIcon(opt['icon']),
         trailing: Icon(Icons.keyboard_arrow_right_outlined),
         onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) =>
-                _dialogodetexto(context, opt['texto']),
-          );
+          //showDialog(
+            //context: context,
+             //builder: (BuildContext context) =>
+               // _dialogodetexto(context, opt['texto']),
+               if (opt['ruta'] == 'alert') {
+            final route = MaterialPageRoute(builder: (context) => AlertPage());
+            Navigator.push(context, route);
+          } else if (opt['ruta'] == 'avatar') {
+            final route = MaterialPageRoute(builder: (context) => AvatarPage());
+            Navigator.push(context, route);
+          } else if (opt['ruta'] == 'card') {
+            final route = MaterialPageRoute(builder: (context) => CardsPage());
+            Navigator.push(context, route);
+          } else {
+          }
+
+          
         },
       );
       opciones..add(widgetTemp)..add(Divider());
     });
     return opciones;
   }
-
-  Widget _dialogodetexto(BuildContext context, String opt) {
-    return new AlertDialog(
-      title: const Text('diste click en el boton '),
-      content: new Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('soy la opcion :' + opt),
-        ],
-      ),
-      actions: <Widget>[
-        new FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          textColor: Theme.of(context).primaryColorDark,
-          child: const Text('salir'),
-        ),
-      ],
-    );
-  }
 }
 
+  
